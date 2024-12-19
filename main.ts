@@ -1,3 +1,9 @@
+namespace SpriteKind {
+    export const Plane2Enemy = SpriteKind.create()
+    export const Plane1Enemy = SpriteKind.create()
+    export const Plane1Bullet = SpriteKind.create()
+    export const Plane2bullet = SpriteKind.create()
+}
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -16,10 +22,17 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, Plane_2, 100, 0)
+        `, Plane_2, 200, 0)
+    projectile.setKind(SpriteKind.Plane1Bullet)
+})
+sprites.onOverlap(SpriteKind.Plane1Bullet, SpriteKind.Plane2Enemy, function (sprite, otherSprite) {
+    info.player1.changeLifeBy(-1)
+})
+sprites.onOverlap(SpriteKind.Plane2bullet, SpriteKind.Plane1Enemy, function (sprite, otherSprite) {
+    info.player2.changeLifeBy(-1)
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(img`
+    projectile2 = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -36,23 +49,25 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, Plane_1, -100, 0)
+        `, Plane_1, -200, 0)
+    projectile2.setKind(SpriteKind.Plane2bullet)
+})
+info.player1.onLifeZero(function () {
+    game.gameOver(true)
+})
+info.player2.onLifeZero(function () {
+    game.gameOver(true)
 })
 controller.player2.onEvent(ControllerEvent.Connected, function () {
-    if (projectile.overlapsWith(Plane_1)) {
-        info.changeLifeBy(-1)
-    }
-    info.player2.setLife(3)
     controller.player2.moveSprite(Plane_2)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
-    let projectile2: Sprite = null
-    if (projectile2.overlapsWith(Plane_2)) {
-        info.changeLifeBy(-1)
-    }
-    info.player1.setLife(3)
-    controller.player1.moveSprite(Plane_2)
+    controller.player1.moveSprite(Plane_1)
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+})
+let projectile2: Sprite = null
 let projectile: Sprite = null
 let Plane_2: Sprite = null
 let Plane_1: Sprite = null
@@ -195,7 +210,7 @@ Plane_1 = sprites.create(img`
     .........fcc2ffffffff...
     ..........fc2ffff.......
     ...........fffff........
-    `, SpriteKind.Player)
+    `, SpriteKind.Plane2Enemy)
 Plane_2 = sprites.create(img`
     ..ccc.........ffffff....
     ..f4cc.......fcc22ff....
@@ -213,8 +228,11 @@ Plane_2 = sprites.create(img`
     ...ffffffff2ccf.........
     .......ffff2cf..........
     ........fffff...........
-    `, SpriteKind.Player)
+    `, SpriteKind.Plane1Enemy)
 Plane_2.setPosition(17, 71)
 Plane_1.setPosition(132, 71)
 Plane_1.setStayInScreen(true)
 Plane_2.setStayInScreen(true)
+forever(function () {
+	
+})
