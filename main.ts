@@ -7,77 +7,88 @@ namespace SpriteKind {
     export const Plane2BigBullet = SpriteKind.create()
 }
 controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
-    projectile3 = sprites.createProjectileFromSprite(img`
-        . 3 . . . . . . . . . . . 4 . . 
-        . 3 3 . . . . . . . . . 4 4 . . 
-        . 3 d 3 . . 4 4 . . 4 4 d 4 . . 
-        . . 3 5 3 4 5 5 4 4 d d 4 4 . . 
-        . . 3 d 5 d 1 1 d 5 5 d 4 4 . . 
-        . . 4 5 5 1 1 1 1 5 1 1 5 4 . . 
-        . 4 5 5 5 5 1 1 5 1 1 1 d 4 4 . 
-        . 4 d 5 1 1 5 5 5 1 1 1 5 5 4 . 
-        . 4 4 5 1 1 5 5 5 5 5 d 5 5 4 . 
-        . . 4 3 d 5 5 5 d 5 5 d d d 4 . 
-        . 4 5 5 d 5 5 5 d d d 5 5 4 . . 
-        . 4 5 5 d 3 5 d d 3 d 5 5 4 . . 
-        . 4 4 d d 4 d d d 4 3 d d 4 . . 
-        . . 4 5 4 4 4 4 4 4 4 4 4 . . . 
-        . 4 5 4 . . 4 4 4 . . . 4 4 . . 
-        . 4 4 . . . . . . . . . . 4 4 . 
-        `, Plane_2, 50, 0)
-    projectile3.setKind(SpriteKind.Plane1Bullet)
+    timer.throttle("action", 500, function () {
+        projectile3 = sprites.createProjectileFromSprite(img`
+            . 3 . . . . . . . . . . . 4 . . 
+            . 3 3 . . . . . . . . . 4 4 . . 
+            . 3 d 3 . . 4 4 . . 4 4 d 4 . . 
+            . . 3 5 3 4 5 5 4 4 d d 4 4 . . 
+            . . 3 d 5 d 1 1 d 5 5 d 4 4 . . 
+            . . 4 5 5 1 1 1 1 5 1 1 5 4 . . 
+            . 4 5 5 5 5 1 1 5 1 1 1 d 4 4 . 
+            . 4 d 5 1 1 5 5 5 1 1 1 5 5 4 . 
+            . 4 4 5 1 1 5 5 5 5 5 d 5 5 4 . 
+            . . 4 3 d 5 5 5 d 5 5 d d d 4 . 
+            . 4 5 5 d 5 5 5 d d d 5 5 4 . . 
+            . 4 5 5 d 3 5 d d 3 d 5 5 4 . . 
+            . 4 4 d d 4 d d d 4 3 d d 4 . . 
+            . . 4 5 4 4 4 4 4 4 4 4 4 . . . 
+            . 4 5 4 . . 4 4 4 . . . 4 4 . . 
+            . 4 4 . . . . . . . . . . 4 4 . 
+            `, Plane_2, 50, 0)
+        projectile3.setKind(SpriteKind.Plane1Bullet)
+    })
 })
 sprites.onOverlap(SpriteKind.Plane1Bullet, SpriteKind.Plane1Enemy, function (sprite, otherSprite) {
     info.player2.changeLifeBy(-1)
 })
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 4 4 . . . . . . . 
-        . . . . . . 4 5 5 4 . . . . . . 
-        . . . . . . 2 5 5 2 . . . . . . 
-        . . . . . . . 2 2 . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, Plane_2, 200, 0)
-    projectile.setKind(SpriteKind.Plane1Bullet)
+    timer.throttle("action", 20, function () {
+        projectile = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 4 4 . . . . . . . 
+            . . . . . . 4 5 5 4 . . . . . . 
+            . . . . . . 2 5 5 2 . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, Plane_2, 200, 0)
+        projectile.setKind(SpriteKind.Plane1Bullet)
+    })
 })
 sprites.onOverlap(SpriteKind.Plane2BigBullet, SpriteKind.Plane2Enemy, function (sprite, otherSprite) {
     info.player1.changeLifeBy(-2)
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    projectile2 = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 4 4 . . . . . . . 
-        . . . . . . 4 5 5 4 . . . . . . 
-        . . . . . . 2 5 5 2 . . . . . . 
-        . . . . . . . 2 2 . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, Plane_1, -200, 0)
-    projectile2.setKind(SpriteKind.Plane2bullet)
+    timer.throttle("action", 20, function () {
+        projectile2 = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 4 4 . . . . . . . 
+            . . . . . . 4 5 5 4 . . . . . . 
+            . . . . . . 2 5 5 2 . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, Plane_1, -200, 0)
+        projectile2.setKind(SpriteKind.Plane2bullet)
+    })
 })
 info.player1.onLifeZero(function () {
     game.gameOver(false)
     game.setGameOverEffect(false, effects.smiles)
+    if (true) {
+    	
+    } else {
+    	
+    }
 })
 info.player2.onLifeZero(function () {
     game.gameOver(true)
@@ -88,25 +99,27 @@ controller.player2.onEvent(ControllerEvent.Connected, function () {
     info.player2.setLife(20)
 })
 controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
-    Projectile4 = sprites.createProjectileFromSprite(img`
-        . 3 . . . . . . . . . . . 4 . . 
-        . 3 3 . . . . . . . . . 4 4 . . 
-        . 3 d 3 . . 4 4 . . 4 4 d 4 . . 
-        . . 3 5 3 4 5 5 4 4 d d 4 4 . . 
-        . . 3 d 5 d 1 1 d 5 5 d 4 4 . . 
-        . . 4 5 5 1 1 1 1 5 1 1 5 4 . . 
-        . 4 5 5 5 5 1 1 5 1 1 1 d 4 4 . 
-        . 4 d 5 1 1 5 5 5 1 1 1 5 5 4 . 
-        . 4 4 5 1 1 5 5 5 5 5 d 5 5 4 . 
-        . . 4 3 d 5 5 5 d 5 5 d d d 4 . 
-        . 4 5 5 d 5 5 5 d d d 5 5 4 . . 
-        . 4 5 5 d 3 5 d d 3 d 5 5 4 . . 
-        . 4 4 d d 4 d d d 4 3 d d 4 . . 
-        . . 4 5 4 4 4 4 4 4 4 4 4 . . . 
-        . 4 5 4 . . 4 4 4 . . . 4 4 . . 
-        . 4 4 . . . . . . . . . . 4 4 . 
-        `, Plane_1, -50, 0)
-    Projectile4.setKind(SpriteKind.Plane2bullet)
+    timer.throttle("action", 1000, function () {
+        Projectile4 = sprites.createProjectileFromSprite(img`
+            . 3 . . . . . . . . . . . 4 . . 
+            . 3 3 . . . . . . . . . 4 4 . . 
+            . 3 d 3 . . 4 4 . . 4 4 d 4 . . 
+            . . 3 5 3 4 5 5 4 4 d d 4 4 . . 
+            . . 3 d 5 d 1 1 d 5 5 d 4 4 . . 
+            . . 4 5 5 1 1 1 1 5 1 1 5 4 . . 
+            . 4 5 5 5 5 1 1 5 1 1 1 d 4 4 . 
+            . 4 d 5 1 1 5 5 5 1 1 1 5 5 4 . 
+            . 4 4 5 1 1 5 5 5 5 5 d 5 5 4 . 
+            . . 4 3 d 5 5 5 d 5 5 d d d 4 . 
+            . 4 5 5 d 5 5 5 d d d 5 5 4 . . 
+            . 4 5 5 d 3 5 d d 3 d 5 5 4 . . 
+            . 4 4 d d 4 d d d 4 3 d d 4 . . 
+            . . 4 5 4 4 4 4 4 4 4 4 4 . . . 
+            . 4 5 4 . . 4 4 4 . . . 4 4 . . 
+            . 4 4 . . . . . . . . . . 4 4 . 
+            `, Plane_1, -50, 0)
+        Projectile4.setKind(SpriteKind.Plane2bullet)
+    })
 })
 sprites.onOverlap(SpriteKind.Plane1Bigbullet, SpriteKind.Plane1Enemy, function (sprite, otherSprite) {
     info.player2.changeLifeBy(-2)
@@ -286,3 +299,57 @@ Plane_2.setPosition(17, 71)
 Plane_1.setPosition(132, 71)
 Plane_1.setStayInScreen(true)
 Plane_2.setStayInScreen(true)
+let Powerups = [sprites.create(img`
+    . . 2 2 b b b b b . . . . . . . 
+    . 2 b 4 4 4 4 4 4 b . . . . . . 
+    2 2 4 4 4 4 d d 4 4 b . . . . . 
+    2 b 4 4 4 4 4 4 d 4 b . . . . . 
+    2 b 4 4 4 4 4 4 4 d 4 b . . . . 
+    2 b 4 4 4 4 4 4 4 4 4 b . . . . 
+    2 b 4 4 4 4 4 4 4 4 4 e . . . . 
+    2 2 b 4 4 4 4 4 4 4 b e . . . . 
+    . 2 b b b 4 4 4 b b b e . . . . 
+    . . e b b b b b b b e e . . . . 
+    . . . e e b 4 4 b e e e b . . . 
+    . . . . . e e e e e e b d b b . 
+    . . . . . . . . . . . b 1 1 1 b 
+    . . . . . . . . . . . c 1 d d b 
+    . . . . . . . . . . . c 1 b c . 
+    . . . . . . . . . . . . c c . . 
+    `, SpriteKind.Food), sprites.create(img`
+    ..............bbbbbbb...........
+    ...........bb66663333baa........
+    .........bb3367776333663aa......
+    ........b33333888333389633aa....
+    .......b3333333333333389633aa...
+    ......b34443333333333338633bae..
+    .....b3455433333333334443333ae..
+    ....b33322333dddd3333455233daee.
+    ...b3d333333dd3bbbb33322333dabe.
+    ..b3d333333d3bb33bb33333333da4e.
+    ..bd33333333b33aab3333333223a4ee
+    .b3d3663333b33aab33366332442b4ee
+    .bd3b983333a3aa3333387633ee3b4ee
+    .bd6983333baaa333333387633bb4bee
+    b3d6833333bba333333333863ba44ebe
+    bdd3333333bb3333333333333a44bebe
+    add666633333322333366333ba44bbbe
+    ad67776333332442336983d3a444b4e.
+    add888b333333ee3369833d3a44b44e.
+    add333333333333336833d3a444b4e..
+    a3dd3333344433333dddd3a444b44e..
+    ab33ddd325543333dd33aa444b44e...
+    .eabb3dd32233333baaa4444b44e....
+    .ebabb3d333d33baa444443b44e.....
+    ..ebaab3ddd3aaa4444433b44e......
+    ..eebbaab33a44444333b444e.......
+    ...eeebbaab444b333b4444e........
+    ....ebeeebbbbbbbb4444ee.........
+    .....eebbbb44444444ee...........
+    .......eeebbb444eee.............
+    ..........eeeeee................
+    ................................
+    `, SpriteKind.Food)]
+game.onUpdateInterval(2000, function () {
+	
+})

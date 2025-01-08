@@ -1,8 +1,10 @@
 {
-    "name": "Arcade 1",
+    "name": "Bhavya Fights",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "controller": "*"
     },
     "files": [
         "main.blocks",
@@ -14,7 +16,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.12.57",
+        "target": "1.12.58",
         "targetId": "arcade"
     },
     "supportedTargets": [
